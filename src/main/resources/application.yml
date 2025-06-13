@@ -4,9 +4,10 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: postgresql://ibetadmin:vZeBYpOuN1Qba5oEzKnJUx6PCSH0BPxk@dpg-d15p3u6mcj7s73dlf26g-a/registryapp
-    username: ibetadmin
-    password: vZeBYpOuN1Qba5oEzKnJUx6PCSH0BPxk
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
   jpa:
     database: postgresql
     hibernate:
@@ -16,6 +17,7 @@ spring:
         order_inserts: true
         order_updates: true
         show_sql: true
+
   servlet:
     multipart:
       max-file-size: 15MB
@@ -24,4 +26,4 @@ spring:
 app:
   jwt:
     time-in-minutes: 20
-    secret: r3g157ry_499l1c4t10n_574nd4rd_cl13n7_53cr37
+    secret: ${APP_JWT_SECRET}

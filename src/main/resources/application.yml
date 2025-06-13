@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost/RegistryApp
-    username: postgres
-    password: Clannad
+    url: jdbc:postgresql://localhost/registryapp
+    username: ibetadmin
+    password: vZeBYpOuN1Qba5oEzKnJUx6PCSH0BPxk
   jpa:
     database: postgresql
     hibernate:

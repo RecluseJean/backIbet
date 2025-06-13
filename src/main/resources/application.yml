@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:postgresql://dpg-d15p3u6mcj7s73dlf26g-a/5432/registryapp
+    username: ibetadmin
+    password: vZeBYpOuN1Qba5oEzKnJUx6PCSH0BPxk
 
   jpa:
     database: postgresql
@@ -26,4 +26,4 @@ spring:
 app:
   jwt:
     time-in-minutes: 20
-    secret: ${APP_JWT_SECRET}
+    secret: r3g157ry_499l1c4t10n_574nd4rd_cl13n7_53cr37

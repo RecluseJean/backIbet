@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost/RegistryApp
+    username: postgres
+    password: Clannad
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        order_inserts: true
+        order_updates: true
+        show_sql: true
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 15MB
+
+app:
+  jwt:
+    time-in-minutes: 20
+    secret: r3g157ry_499l1c4t10n_574nd4rd_cl13n7_53cr37

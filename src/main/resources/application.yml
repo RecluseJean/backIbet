@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost/registryapp
+    url: postgresql://ibetadmin:vZeBYpOuN1Qba5oEzKnJUx6PCSH0BPxk@dpg-d15p3u6mcj7s73dlf26g-a/registryapp
     username: ibetadmin
     password: vZeBYpOuN1Qba5oEzKnJUx6PCSH0BPxk
   jpa:

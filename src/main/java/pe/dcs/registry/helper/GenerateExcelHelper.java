@@ -92,39 +92,39 @@ public class GenerateExcelHelper {
 
             int contadorColumna = 0;
 
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, String.valueOf(congreganteResponse.getIndice()));
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, DataConverter.getFirstLetterAndUpperFromText(congreganteResponse.getApellido()));
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getApellido());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getNombre());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getSexo());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getTelefono());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getDireccion());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getMesCumpleanios());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getFechaNacimiento());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getEdad());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getEstadoCivil());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getCantidadHijo());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getTiempoIBET());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getIglesiaAnterior());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getBautizado());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getIglesiaBautizo());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getTiempoBautizo());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getEstudiando());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getCurso());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getCursoUltimo());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getTiempoSinEstudio());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getMotivoSinEstudio());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getParticipandoGPC());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getMotivoNoGPC());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getNumeroGPC());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getEnMinisterio());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getEnMinisterio());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getCargo());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getEstudiandoEscuelaCiervo());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getCursoEscuelaCiervo());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getCursoUltimoEscuelaCiervo());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna++, congreganteResponse.getTiempoSinEstudioEscuelaCiervo());
-            crearCelda(row, personalizarFilaExcel(), contadorColumna, congreganteResponse.getMotivoSinEstudioEscuelaCiervo());
+            crearCelda(row, personalizarFilaExcel(), 0, String.valueOf(congreganteResponse.getIndice()));
+            crearCelda(row, personalizarFilaExcel(), 1, DataConverter.getFirstLetterAndUpperFromText(congreganteResponse.getApellido()));
+            crearCelda(row, personalizarFilaExcel(), 2, congreganteResponse.getApellido());
+            crearCelda(row, personalizarFilaExcel(), 3, congreganteResponse.getNombre());
+            crearCelda(row, personalizarFilaExcel(), 4, congreganteResponse.getSexo());
+            crearCelda(row, personalizarFilaExcel(), 5, congreganteResponse.getTelefono());
+            crearCelda(row, personalizarFilaExcel(), 6, congreganteResponse.getDireccion());
+            crearCelda(row, personalizarFilaExcel(), 7, congreganteResponse.getMesCumpleanios());
+            crearCelda(row, personalizarFilaExcel(), 8, congreganteResponse.getFechaNacimiento());
+            crearCelda(row, personalizarFilaExcel(), 9, congreganteResponse.getEdad());
+            crearCelda(row, personalizarFilaExcel(), 10, congreganteResponse.getEstadoCivil());
+            crearCelda(row, personalizarFilaExcel(), 11, congreganteResponse.getCantidadHijo());
+            crearCelda(row, personalizarFilaExcel(), 12, congreganteResponse.getTiempoIBET());
+            crearCelda(row, personalizarFilaExcel(), 13, congreganteResponse.getIglesiaAnterior());
+            crearCelda(row, personalizarFilaExcel(), 14, congreganteResponse.getBautizado());
+            crearCelda(row, personalizarFilaExcel(), 15, congreganteResponse.getIglesiaBautizo());
+            crearCelda(row, personalizarFilaExcel(), 16, congreganteResponse.getTiempoBautizo());
+            crearCelda(row, personalizarFilaExcel(), 17, congreganteResponse.getEstudiando());
+            crearCelda(row, personalizarFilaExcel(), 18, congreganteResponse.getCurso());
+            crearCelda(row, personalizarFilaExcel(), 19, congreganteResponse.getCursoUltimo());
+            crearCelda(row, personalizarFilaExcel(), 20, congreganteResponse.getTiempoSinEstudio());
+            crearCelda(row, personalizarFilaExcel(), 21, congreganteResponse.getMotivoSinEstudio());
+            crearCelda(row, personalizarFilaExcel(), 22, congreganteResponse.getParticipandoGPC());
+            crearCelda(row, personalizarFilaExcel(), 23, congreganteResponse.getMotivoNoGPC());
+            crearCelda(row, personalizarFilaExcel(), 24, congreganteResponse.getNumeroGPC());
+            crearCelda(row, personalizarFilaExcel(), 25, congreganteResponse.getEnMinisterio());
+            crearCelda(row, personalizarFilaExcel(), 26, congreganteResponse.getEnMinisterio());
+            crearCelda(row, personalizarFilaExcel(), 27, congreganteResponse.getCargo());
+            crearCelda(row, personalizarFilaExcel(), 28, congreganteResponse.getEstudiandoEscuelaCiervo());
+            crearCelda(row, personalizarFilaExcel(), 29, congreganteResponse.getCursoEscuelaCiervo());
+            crearCelda(row, personalizarFilaExcel(), 30, congreganteResponse.getCursoUltimoEscuelaCiervo());
+            crearCelda(row, personalizarFilaExcel(), 31, congreganteResponse.getTiempoSinEstudioEscuelaCiervo());
+            crearCelda(row, personalizarFilaExcel(), 32, congreganteResponse.getMotivoSinEstudioEscuelaCiervo());
         }
     }
 
@@ -138,7 +138,7 @@ public class GenerateExcelHelper {
     }
 
     private static void ajustarAnchosColumnas() {
-        int numeroColumnas = 33; // Número total de columnas que usas (ajusta si cambias)
+        int numeroColumnas = 32; // Número total de columnas que usas (ajusta si cambias)
         for (int i = 0; i < numeroColumnas; i++) {
             sheet.setColumnWidth(i, 20 * 256); // 20 caracteres de ancho
         }

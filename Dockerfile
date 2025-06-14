@@ -1,13 +1,14 @@
 FROM openjdk:17-jdk-slim
 
+# Instala libfreetype6 para que funcione java.awt con Apache POI
+RUN apt-get update && apt-get install -y libfreetype6 && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 COPY . .
 
-RUN chmod +x mvnw
-
-RUN ./mvnw clean install -DskipTests
+RUN chmod +x mvnw && ./mvnw clean install -DskipTests
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "target/registry-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-Djava.awt.headless=true", "-jar", "target/registry-0.0.1-SNAPSHOT.jar"]

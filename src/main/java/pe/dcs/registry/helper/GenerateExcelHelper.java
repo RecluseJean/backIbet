@@ -158,9 +158,7 @@ public class GenerateExcelHelper {
         style.setBorderRight(BorderStyle.THIN);
         style.setBorderLeft(BorderStyle.THIN);
 
-        Color color = new Color(122, 213, 146);
-        XSSFColor xssfColor = new XSSFColor(color, null);
-        style.setFillForegroundColor(xssfColor);
+        style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
         style.setFont(font);

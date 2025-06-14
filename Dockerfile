@@ -1,7 +1,10 @@
 FROM openjdk:17-jdk-slim
 
-# Instala libfreetype6 para que funcione java.awt con Apache POI
-RUN apt-get update && apt-get install -y libfreetype6 && rm -rf /var/lib/apt/lists/*
+# Instala librerías necesarias para Java AWT headless (para generación de Excel con estilos y fuentes)
+RUN apt-get update && apt-get install -y \
+    libfreetype6 \
+    fonts-dejavu \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 

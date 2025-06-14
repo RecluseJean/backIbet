@@ -30,7 +30,7 @@ public class GenerateExcelHelper {
             generarHojaExcel();
             crearCabeceraExcel();
             crearFilasExcel(listCongregantes);
-
+            ajustarAnchosColumnas();
             workbook.write(outputStream);
 
             return new ByteArrayInputStream(outputStream.toByteArray());
@@ -129,14 +129,19 @@ public class GenerateExcelHelper {
     }
 
     private static void crearCelda(Row row, CellStyle style, int contadorColumna, String valorColumna) {
-
-        sheet.autoSizeColumn(contadorColumna);
+        // Comentamos o eliminamos esta línea para evitar el error
+        // sheet.autoSizeColumn(contadorColumna);
 
         Cell cell = row.createCell(contadorColumna);
-
         cell.setCellValue(valorColumna);
-
         cell.setCellStyle(style);
+    }
+
+    private static void ajustarAnchosColumnas() {
+        int numeroColumnas = 33; // Número total de columnas que usas (ajusta si cambias)
+        for (int i = 0; i < numeroColumnas; i++) {
+            sheet.setColumnWidth(i, 20 * 256); // 20 caracteres de ancho
+        }
     }
 
     private static CellStyle personalizarCabeceraExcel(Row row) {

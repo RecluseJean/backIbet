@@ -195,6 +195,12 @@ public class CongreganteController {
 
         for (GuardarCongreganteRequest guardarCongreganteRequest : listaCongregantesRequest) {
             logger.info(INICIO_VALIDACION);
+            // 🚫 Validación para evitar guardar filas vacías
+            if ((guardarCongreganteRequest.getApellido() == null || guardarCongreganteRequest.getApellido().trim().isEmpty()) &&
+                    (guardarCongreganteRequest.getNombre() == null || guardarCongreganteRequest.getNombre().trim().isEmpty())) {
+                logger.warn("Fila omitida: Apellido y Nombre vacíos.");
+                continue;
+            }
             Set<CongreganteValidation> validationListCongregante = new HashSet<>();
 
             congreganteService.findCongreganteToValidate(
@@ -1385,4 +1391,36 @@ public class CongreganteController {
                     HttpStatus.ACCEPTED);
         }
     }
+
+    @DeleteMapping("/v1/congregantes/vacios")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ServiceResponse> eliminarCongregantesVacios(
+            @RequestHeader(value = "Authorization", required = false) String authorization) {
+
+        logger.info("Iniciando eliminación de congregantes con nombre o apellido vacío");
+
+        if (authorization == null || authorization.isEmpty()) {
+            logger.error(SIN_AUTHORIZATION_HEADER);
+
+            ServiceResponse serviceResponse = new ServiceResponse(
+                    SIN_AUTHORIZATION_HEADER_MESSAGE,
+                    HttpStatus.BAD_REQUEST.value(),
+                    HttpStatus.BAD_REQUEST.getReasonPhrase()
+            );
+
+            return new ResponseEntity<>(serviceResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        int eliminados = congreganteService.eliminarCongregantesNombreApellidoVacios();
+
+        ServiceResponse serviceResponse = new ServiceResponse(
+                "Se eliminaron " + eliminados + " registros con nombre o apellido vacío.",
+                HttpStatus.OK.value(),
+                HttpStatus.OK.getReasonPhrase()
+        );
+
+        logger.info("Eliminación finalizada. Total eliminados: {}", eliminados);
+        return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
+    }
+
 }

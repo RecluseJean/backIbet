@@ -30,6 +30,8 @@ import pe.dcs.registry.validation.CongreganteValidation;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
@@ -224,15 +226,56 @@ public class CongreganteController {
 
                 logger.info("Se continúa con el proceso de registro");
 
+                String mesCumpleaniosCongregante = null;
+                String fechaNacimientoCongregante = null;
+                String edadCongregante = null;
+
+                logger.info("fechaNacimientoCongregante");
+                logger.info(guardarCongreganteRequest.getFechaNacimiento());
+
+                String fechaRaw = guardarCongreganteRequest.getFechaNacimiento();
+
+                logger.info("fechaNacimientoCongregante: {}", guardarCongreganteRequest.getFechaNacimiento());
+
+                if (fechaRaw != null && !fechaRaw.trim().isEmpty()) {
+                    fechaRaw = DataConverter.formatTextTrim(fechaRaw);
+                    LocalDate fechaNacimiento = null;
+
+                    // 1. Intentar con formato corto (d/M/yy) interpretando años desde 1920 a 2099
+                    try {
+                        DateTimeFormatter formatterShort = new DateTimeFormatterBuilder()
+                                .appendPattern("d/M/")
+                                .appendValueReduced(ChronoField.YEAR, 2, 2, 1920) // Aquí el truco
+                                .toFormatter();
+                        fechaNacimiento = LocalDate.parse(fechaRaw, formatterShort);
+                        logger.info("Fecha parseada con formato corto (2 dígitos): {}", fechaNacimiento);
+                    } catch (Exception e) {
+                        // 2. Intentar con formato largo (dd/MM/yyyy)
+                        try {
+                            DateTimeFormatter formatterLong = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                            fechaNacimiento = LocalDate.parse(fechaRaw, formatterLong);
+                            logger.info("Fecha parseada con formato largo: {}", fechaNacimiento);
+                        } catch (Exception ex) {
+                            logger.error("Formato de fecha inválido: {}", fechaRaw);
+                        }
+                    }
+
+                    // Si alguna conversión fue exitosa
+                    if (fechaNacimiento != null) {
+                        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        fechaNacimientoCongregante = fechaNacimiento.format(outputFormat); // Siempre queda como dd/MM/yyyy
+
+                        mesCumpleaniosCongregante = DataConverter.getMonthTextFromTextDate(fechaNacimientoCongregante);
+                        edadCongregante = DataConverter.getPeriodDiffTextFromDates(fechaNacimiento, GeneralConstant.FECHA_HORA_LOCAL.toLocalDate());
+                    }
+                }
+
                 logger.info(FORMAT_REQUEST);
                 String apellidoCongregante = DataConverter.formatTextTrim(guardarCongreganteRequest.getApellido());
                 String nombreCongregante = DataConverter.formatTextTrim(guardarCongreganteRequest.getNombre());
                 String sexoCongregante = guardarCongreganteRequest.getSexo().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(guardarCongreganteRequest.getSexo());
                 String telefonoCongregante = guardarCongreganteRequest.getTelefono().isEmpty() ? null : DataConverter.formatTextTrim(guardarCongreganteRequest.getTelefono());
                 String direccionCongregante = guardarCongreganteRequest.getDireccion().isEmpty() ? null : DataConverter.formatTextTrim(guardarCongreganteRequest.getDireccion());
-                String mesCumpleaniosCongregante = guardarCongreganteRequest.getMesCumpleanios().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(guardarCongreganteRequest.getMesCumpleanios());
-                String fechaNacimientoCongregante = guardarCongreganteRequest.getFechaNacimiento().isEmpty() ? null : DataConverter.formatTextTrim(guardarCongreganteRequest.getFechaNacimiento());
-                String edadCongregante = guardarCongreganteRequest.getEdad().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(guardarCongreganteRequest.getEdad());
                 String estadoCivilCongregante = guardarCongreganteRequest.getEstadoCivil().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(guardarCongreganteRequest.getEstadoCivil());
                 String cantidadHijoCongregante = guardarCongreganteRequest.getCantidadHijo().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(guardarCongreganteRequest.getCantidadHijo());
                 String tiempoIBETCongregante = guardarCongreganteRequest.getTiempoIBET().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(guardarCongreganteRequest.getTiempoIBET());
@@ -1218,15 +1261,34 @@ public class CongreganteController {
         String jsonBody = objectWriter.writeValueAsString(actualizarCongreganteRequest);
         logger.info(jsonBody);
 
+        String mesCumpleaniosCongregante = null;
+        String fechaNacimientoCongregante = null;
+        String edadCongregante = null;
+
+        if (actualizarCongreganteRequest.getFechaNacimiento() != null && !actualizarCongreganteRequest.getFechaNacimiento().isEmpty()) {
+            fechaNacimientoCongregante = DataConverter.formatTextTrim(actualizarCongreganteRequest.getFechaNacimiento());
+
+            Pattern pattern = Pattern.compile(RegexConstant.REGEX_FECHA_DD_MM_YY);
+            Matcher matcher = pattern.matcher(fechaNacimientoCongregante);
+
+            if (matcher.matches()) {
+                mesCumpleaniosCongregante = DataConverter.getMonthTextFromTextDate(fechaNacimientoCongregante);
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(GeneralConstant.PATTERN_FECHA_SLASH);
+                LocalDate fechaNacimiento = LocalDate.parse(fechaNacimientoCongregante, formatter);
+
+                edadCongregante = DataConverter.getPeriodDiffTextFromDates(fechaNacimiento, GeneralConstant.FECHA_HORA_LOCAL.toLocalDate());
+            } else {
+                fechaNacimientoCongregante = null;
+            }
+        }
+
         logger.info(FORMAT_REQUEST);
         String apellidoCongregante = DataConverter.formatTextTrim(actualizarCongreganteRequest.getApellido());
         String nombreCongregante = DataConverter.formatTextTrim(actualizarCongreganteRequest.getNombre());
         String sexoCongregante = actualizarCongreganteRequest.getSexo().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(actualizarCongreganteRequest.getSexo());
         String telefonoCongregante = actualizarCongreganteRequest.getTelefono().isEmpty() ? null : DataConverter.formatTextTrim(actualizarCongreganteRequest.getTelefono());
         String direccionCongregante = actualizarCongreganteRequest.getDireccion().isEmpty() ? null : DataConverter.formatTextTrim(actualizarCongreganteRequest.getDireccion());
-        String mesCumpleaniosCongregante = actualizarCongreganteRequest.getMesCumpleanios().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(actualizarCongreganteRequest.getMesCumpleanios());
-        String fechaNacimientoCongregante = actualizarCongreganteRequest.getFechaNacimiento().isEmpty() ? null : DataConverter.formatTextTrim(actualizarCongreganteRequest.getFechaNacimiento());
-        String edadCongregante = actualizarCongreganteRequest.getFechaNacimiento().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(actualizarCongreganteRequest.getFechaNacimiento());
         String estadoCivilCongregante = actualizarCongreganteRequest.getEstadoCivil().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(actualizarCongreganteRequest.getEstadoCivil());
         String cantidadHijoCongregante = actualizarCongreganteRequest.getCantidadHijo().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(actualizarCongreganteRequest.getCantidadHijo());
         String tiempoIBETCongregante = actualizarCongreganteRequest.getTiempoIBET().isEmpty() ? null : DataConverter.formatTextTrimAndUpper(actualizarCongreganteRequest.getTiempoIBET());
@@ -1392,5 +1454,35 @@ public class CongreganteController {
         }
     }
 
+    /*@DeleteMapping("/v1/congregantes/vacios")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ServiceResponse> eliminarCongregantesVacios(
+            @RequestHeader(value = "Authorization", required = false) String authorization) {
+
+        logger.info("Iniciando eliminación de congregantes con nombre o apellido vacío");
+
+        if (authorization == null || authorization.isEmpty()) {
+            logger.error(SIN_AUTHORIZATION_HEADER);
+
+            ServiceResponse serviceResponse = new ServiceResponse(
+                    SIN_AUTHORIZATION_HEADER_MESSAGE,
+                    HttpStatus.BAD_REQUEST.value(),
+                    HttpStatus.BAD_REQUEST.getReasonPhrase()
+            );
+
+            return new ResponseEntity<>(serviceResponse, HttpStatus.BAD_REQUEST);
+        }
+
+        int eliminados = congreganteService.eliminarCongregantesNombreApellidoVacios();
+
+        ServiceResponse serviceResponse = new ServiceResponse(
+                "Se eliminaron " + eliminados + " registros con nombre o apellido vacío.",
+                HttpStatus.OK.value(),
+                HttpStatus.OK.getReasonPhrase()
+        );
+
+        logger.info("Eliminación finalizada. Total eliminados: {}", eliminados);
+        return new ResponseEntity<>(serviceResponse, HttpStatus.OK);
+    }*/
 
 }

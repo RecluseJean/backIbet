@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:Igleisaibet@@db.fxvjyegirzhmxljyxfqq.supabase.co:5432/postgres
-    username: registryapp_59ri_user
-    password: GDe5yU8tJnxD1QBGfaidZpBEz20RGh2t
+    url: jdbc:postgresql://db.fxvjyegirzhmxljyxfqq.supabase.co:5432/postgres?sslmode=require
+    username: postgres
+    password: Igleisaibet@
     driver-class-name: org.postgresql.Driver
   jpa:
     database: postgresql

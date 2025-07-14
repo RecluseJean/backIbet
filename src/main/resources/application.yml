@@ -3,14 +3,14 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://dpg-d15tip0dl3ps7385tp00-a.oregon-postgres.render.com:5432/registryapp_59ri
+    url: jdbc:postgresql://postgres:Igleisaibet@@db.fxvjyegirzhmxljyxfqq.supabase.co:5432/postgres
     username: registryapp_59ri_user
     password: GDe5yU8tJnxD1QBGfaidZpBEz20RGh2t
     driver-class-name: org.postgresql.Driver
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         order_inserts: true

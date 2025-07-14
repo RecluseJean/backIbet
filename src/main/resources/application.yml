@@ -3,14 +3,14 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://db.kgohwpartnjsnlnuqtrk.supabase.co:5432/postgres?sslmode=require
+    url: jdbc:postgresql://db.mjdwkmxobwuhrmmiksqt.supabase.co:5432/postgres?sslmode=require
     username: postgres
-    password: RegistryAppPsw
+    password: RegistryApp123
     driver-class-name: org.postgresql.Driver
   jpa:
     database: postgresql
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         order_inserts: true

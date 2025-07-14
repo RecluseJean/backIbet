@@ -45,6 +45,10 @@ public class Usuario {
 
     //Constructores
     //-- Registrar Usuario
+
+    public Usuario() {
+    }
+
     public Usuario(String username, String password, LocalDateTime fechaRegistro, Boolean habilitado, Set<Rol> roles) {
         this.username = username;
         this.password = password;

@@ -48,6 +48,8 @@ public interface ICongreganteService {
 
     Optional<Congregante> findCongreganteById(UUID id);
 
+    int eliminarCongregantesNombreApellidoVacios();
+
     void saveCongregante(Congregante congregante);
 
     void updateCongregante(UUID id, String apellido, String nombre, String sexo, String telefono, String direccion,

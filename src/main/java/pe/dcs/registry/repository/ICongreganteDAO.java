@@ -1,5 +1,6 @@
 package pe.dcs.registry.repository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,6 +17,11 @@ import java.util.UUID;
 
 @Repository
 public interface ICongreganteDAO extends JpaRepository<Congregante, UUID> {
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Congregante c WHERE c.nombre IS NULL OR c.nombre = '' OR c.apellido IS NULL OR c.apellido = ''")
+    int deleteCongregantesWithEmptyNombreOrApellido();
 
     @Query("SELECT NEW Congregante(c.apellido, c.nombre) " +
             "FROM Congregante c " +

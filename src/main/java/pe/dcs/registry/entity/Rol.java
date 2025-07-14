@@ -32,6 +32,9 @@ public class Rol {
 
     //Constructores
     //-- Consultar Rol: Existencia
+    public Rol() {
+    }
+
     public Rol(UUID id, Boolean habilitado) {
         this.id = id;
         this.habilitado = habilitado;

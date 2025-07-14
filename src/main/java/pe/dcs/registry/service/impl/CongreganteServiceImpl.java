@@ -30,6 +30,11 @@ public class CongreganteServiceImpl implements ICongreganteService {
     }
 
     @Override
+    public int eliminarCongregantesNombreApellidoVacios() {
+        return data.deleteCongregantesWithEmptyNombreOrApellido();
+    }
+
+    @Override
     public Page<Congregante> findCongregantes(Pageable pageable) {
         return data.findCongregantes(pageable);
     }

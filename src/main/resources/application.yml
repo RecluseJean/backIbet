@@ -7,6 +7,12 @@ spring:
     username: postgres.mjdwkmxobwuhrmmiksqt
     password: RegistryApp123
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5       # 🔒 Supabase free permite pocas conexiones (~10 máx)
+      minimum-idle: 1
+      idle-timeout: 30000        # 30 segundos
+      max-lifetime: 1800000      # 30 minutos
+      connection-timeout: 30000  # 30 segundos
   jpa:
     database: postgresql
     hibernate:
